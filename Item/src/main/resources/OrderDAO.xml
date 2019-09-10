@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etc.dao.OrderDAO">
+    <select id="query" resultType="order">
+      SELECT
+	t_order.order_id,
+	t_order.order_no,
+	t_user.user_name,
+	t_medicine.m_name,
+	t_order.order_address,
+	t_order.order_date,
+	t_cart.medicine_number,
+	t_order.total,
+	t_order.order_state
+FROM
+	t_order,
+	t_medicine,
+	t_cart,
+	t_user
+WHERE
+	t_cart.medicine_id = t_medicine.m_id and t_order.user_id=t_user.user_id
+    </select>
+    <delete id="delete">
+        delete from t_order where order_id=#{orderId};
+    </delete>
+	<select id="search" resultType="order">
+
+	  SELECT
+	t_order.order_id,
+	t_order.order_no,
+	t_user.user_name,
+	t_medicine.m_name,
+	t_order.order_address,
+	t_order.order_date,
+	t_cart.medicine_number,
+	t_order.total,
+	t_order.order_state
+FROM
+	t_order,
+	t_medicine,
+	t_cart,
+	t_user
+WHERE
+	t_cart.medicine_id = t_medicine.m_id and t_order.user_id=t_user.user_id
+and t_medicine.m_name like '%${medicineName}%'
+	</select>
+</mapper>

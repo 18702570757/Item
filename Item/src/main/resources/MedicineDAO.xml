@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etc.dao.MedicineDAO">
+    <insert id="add">
+        INSERT INTO t_medicine (
+
+        m_name,
+        m_type,
+        m_descript,
+        production_date,
+        expiry_date,
+        norms,
+        m_img,
+        m_quantity,
+        bid,
+        price
+
+        )
+        VALUES
+        (
+
+        #{mName},
+        #{mType},
+        #{mDescript},
+        #{productionDate},
+        #{expiryDate},
+        #{norms},
+        #{mImg},
+        #{mQuantity},
+        #{bid},
+        #{price}
+
+        );
+    </insert>
+    <select id="selectall" resultType="medicine">
+        select * from t_medicine
+    </select>
+    <delete id="delete">
+        delete from t_medicine where m_id=#{mId};
+    </delete>
+    <select id="selectById" resultType="medicine">
+        select * from t_medicine where m_id=#{mId}
+    </select>
+    <select id="selectByName" resultType="medicine">
+        select * from t_medicine where m_name like '%${mName}%'
+    </select>
+    <update id="update">
+        UPDATE t_medicine
+SET
+<if test="mImg!=null">
+    m_img = #{mImg},
+</if>
+ m_name = #{mName},
+ m_type = #{mType},
+ m_descript = #{mDescript},
+ production_date = #{productionDate},
+ expiry_date = #{expiryDate},
+ norms =  #{norms},
+
+ m_quantity =  #{mQuantity},
+ bid = #{bid},
+ price = #{price}
+
+WHERE
+	m_id = #{mId};
+    </update>
+</mapper>

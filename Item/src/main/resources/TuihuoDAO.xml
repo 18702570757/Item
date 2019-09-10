@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etc.dao.TuihuoDAO">
+    <select id="select" resultType="tuihuo">
+        SELECT
+	t_return.return_id,
+	t_order.order_id,
+	t_user.user_name,
+	t_medicine.m_name,
+	t_order.order_quantity,
+	t_order.money,
+	t_return.return_reason,
+	t_return.return_date
+from t_medicine,t_order,t_user,t_return
+WHERE
+	t_return.order_id = t_order.order_id
+AND t_order.user_id = t_user.user_id
+AND t_medicine.m_id = t_order.m_id
+    </select>
+	<delete id="delete">
+		delete from t_return where return_id=#{returnId}
+	</delete>
+	<select id="search" resultType="tuihuo">
+        SELECT
+	t_return.return_id,
+	t_order.order_id,
+	t_user.user_name,
+	t_medicine.m_name,
+	t_order.order_quantity,
+	t_order.money,
+	t_return.return_reason,
+	t_return.return_date
+from t_medicine,t_order,t_user,t_return
+WHERE
+	t_return.order_id = t_order.order_id
+AND t_order.user_id = t_user.user_id
+AND t_medicine.m_id = t_order.m_id
+and t_medicine.m_name like '%${mName}%'
+    </select>
+
+</mapper>
